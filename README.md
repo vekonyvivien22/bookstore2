@@ -1,1 +1,1 @@
-# BOOKSTORE2 (Prf project)
+# Bookstore2 (Prf project)
