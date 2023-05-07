@@ -1,1 +1,87 @@
-<app-header></app-header>
+<mat-toolbar fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex="60%" fxLayoutAlign="space-between center">
+    <div>
+      <button
+        mat-button
+        color="primary"
+        routerLink="/"
+        routerLinkActive="active-link"
+      >
+        Home
+      </button>
+      <button
+        mat-button
+        color="primary"
+        [matMenuTriggerFor]="categories"
+        routerLinkActive="active-link"
+      >
+        Categories
+      </button>
+      <mat-menu #categories="matMenu">
+        <button
+          *ngFor="let cat of categories$ | async"
+          mat-menu-item
+          routerLink="/cat/{{ cat.name }}"
+        >
+          <span>{{ cat.name }}</span>
+        </button>
+      </mat-menu>
+    </div>
+    <ng-container *ngIf="!authService.user?.username; else elseBlock">
+      <div>
+        <button
+          mat-icon-button
+          color="primary"
+          aria-label="Example icon button with a menu icon"
+          [matMenuTriggerFor]="profileMenu"
+          routerLinkActive="active-link"
+        >
+          <mat-icon>person</mat-icon>
+        </button>
+        <mat-menu #profileMenu="matMenu">
+          <button mat-menu-item routerLink="/auth/login">
+            <span>Login</span>
+          </button>
+
+          <button mat-menu-item routerLink="/auth/register">
+            <span>Register</span>
+          </button>
+        </mat-menu>
+      </div>
+    </ng-container>
+    <ng-template #elseBlock>
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <div style="padding-right: 5px">
+          {{ authService.user?.username }}
+        </div>
+        <button
+          mat-icon-button
+          color="primary"
+          aria-label="Example icon button with a menu icon"
+          [matMenuTriggerFor]="profileMenu"
+          routerLinkActive="active-link"
+        >
+          <mat-icon>person</mat-icon>
+        </button>
+        <mat-menu #profileMenu="matMenu">
+          <button mat-menu-item (click)="logout()">
+            <span>Logout</span>
+          </button>
+        </mat-menu>
+        <div>
+          <button
+            mat-icon-button
+            color="primary"
+            routerLinkActive="active-link"
+            routerLink="/cart"
+          >
+            <mat-icon [matBadge]="cartService.books.length" matBadgeColor="warn"
+              >shopping_cart</mat-icon
+            >
+          </button>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</mat-toolbar>
+<router-outlet></router-outlet>

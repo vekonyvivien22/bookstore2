@@ -1,0 +1,58 @@
+<div class="margin-auto login-form">
+  <form [formGroup]="registerForm" (ngSubmit)="register()">
+    <mat-form-field>
+      <mat-label>Username</mat-label>
+      <input type="text" matInput formControlName="username" />
+      <mat-hint>Please enter your username.</mat-hint>
+      <mat-error>Invalid or missing username.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Your email</mat-label>
+      <input type="email" matInput formControlName="email" />
+      <mat-hint>Please enter your email.</mat-hint>
+      <mat-error>Invalid or missing email.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Firstname</mat-label>
+      <input type="text" matInput formControlName="firstName" />
+      <mat-error>This field is required.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Lastname</mat-label>
+      <input type="text" matInput formControlName="lastName" />
+      <mat-error>This field is required.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Address</mat-label>
+      <input type="text" matInput ormControlName="address" />
+      <mat-error>This field is required.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input type="password" matInput formControlName="password" />
+      <mat-hint>Please enter your password.</mat-hint>
+      <mat-error>Missing Password.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Password again</mat-label>
+      <input type="password" matInput formControlName="passwordConfirmation" />
+      <mat-error>The two passwords are not the same.</mat-error>
+    </mat-form-field>
+    <button
+      type="submit"
+      mat-raised-button
+      color="primary"
+      [disabled]="registerForm.invalid"
+      class="w-100 pt-15"
+    >
+      Register
+    </button>
+    <mat-divider></mat-divider>
+    <div class="align-center">
+      <small>
+        If you have an account yet, login
+        <a routerLink="/auth/login">HERE</a>!
+      </small>
+    </div>
+  </form>
+</div>

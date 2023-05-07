@@ -1,0 +1,32 @@
+<div class="margin-auto login-form">
+  <form [formGroup]="loginForm" (ngSubmit)="login()">
+    <mat-form-field>
+      <mat-label>Username</mat-label>
+      <input type="text" matInput formControlName="username" />
+      <mat-hint>Please enter your username.</mat-hint>
+      <mat-error>Invalid or missing username.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input type="password" matInput formControlName="password" />
+      <mat-hint>Please enter your password.</mat-hint>
+      <mat-error>Missing Password.</mat-error>
+    </mat-form-field>
+    <button
+      type="submit"
+      mat-raised-button
+      color="primary"
+      [disabled]="loginForm.invalid"
+      class="w-100 pt-15"
+    >
+      Login
+    </button>
+    <mat-divider></mat-divider>
+    <div class="align-center">
+      <small>
+        If you don't have an account yet, register
+        <a routerLink="/auth/register">HERE</a>!
+      </small>
+    </div>
+  </form>
+</div>

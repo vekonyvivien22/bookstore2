@@ -1,0 +1,44 @@
+<div fxLayoutAlign="center start" style="margin-top: 2rem">
+  <mat-spinner *ngIf="loading" indeterminate style="margin: auto"></mat-spinner>
+  <div *ngIf="!loading" fxFlex="60%" fxLayout="row">
+    <div>
+      <img *ngIf="book.image64" [src]="book.image64" width="400" />
+      <img *ngIf="!book.image64" src="assets/default.jpg" width="400" />
+    </div>
+
+    <div fxLayout="column" style="margin-left: 2rem">
+      <h1 class="title">{{ book.title }}</h1>
+      <h1>{{ book.publisherName }}</h1>
+      <h1>{{ book.price }} Ft</h1>
+      <h2>
+        <mat-icon
+          aria-hidden="false"
+          aria-label="Example home icon"
+          fontIcon="star"
+        ></mat-icon>
+        {{ book.rating }}
+      </h2>
+      <div>
+        <h1>Author(s)</h1>
+        <h3>{{ book.authors | pluck: "name" }}</h3>
+      </div>
+      <div style="padding-bottom: 2rem">
+        <h1>Description</h1>
+        <p>{{ book.description }}</p>
+      </div>
+      <span style="font-size: 15px; padding-bottom: 2rem"
+        ><strong>{{ book.numberOfPages }} pages</strong></span
+      >
+
+      <div>
+        <button mat-raised-button color="primary" (click)="addToCart()">
+          Add to cart<mat-icon
+            aria-hidden="false"
+            aria-label="Example home icon"
+            fontIcon="add"
+          ></mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

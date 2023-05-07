@@ -1,0 +1,119 @@
+<div fxLayout="column">
+  <div
+    fxLayout="row"
+    fxLayoutAlign="space-around center"
+    fxFlex="60%"
+    style="margin-top: 2rem; margin-bottom: 2rem"
+  >
+    <h1>CategoryName{{}}</h1>
+  </div>
+  <div fxLayoutAlign="center center">
+    <mat-form-field fxFlex="60%">
+      <input
+        matInput
+        type="text"
+        placeholder="Filter"
+        (keyup)="filterTable($event)"
+      />
+    </mat-form-field>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="center">
+    <div fxFlex.gt-sm="60">
+      <mat-spinner
+        *ngIf="loading"
+        indeterminate
+        style="margin: auto"
+      ></mat-spinner>
+      <table
+        *ngIf="!loading && dataSource.data.length > 0"
+        mat-table
+        [dataSource]="dataSource"
+        matSort
+      >
+        <!-- Position Column -->
+        <ng-container matColumnDef="index">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>#</th>
+          <td mat-cell *matCellDef="let element">{{ element.index }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="title">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Book</th>
+          <mat-cell
+            *matCellDef="let element"
+            fxLayout="row"
+            routerLink="/book/{{ element._id }}"
+            style="cursor: pointer"
+          >
+            <img
+              *ngIf="element.image64"
+              [src]="element.image64"
+              width="100"
+              style="padding: 1rem 1rem 1rem 0"
+            />
+            <img
+              *ngIf="!element.image64"
+              src="assets/default.jpg"
+              width="100"
+              style="padding: 1rem 1rem 1rem 0"
+            />
+            <div fxLayout="column">
+              <div>
+                {{ element.title }}
+              </div>
+              <div>
+                {{ element.publicationDate }}
+              </div>
+            </div>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="rating">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Rate</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.rating || "No rating yet" }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="price">
+          <th mat-header-cell *matHeaderCellDef>Price</th>
+          <td mat-cell *matCellDef="let element">{{ element.price }} Ft</td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let element">
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="addToCart(element)"
+            >
+              Add to cart
+              <mat-icon
+                aria-hidden="false"
+                aria-label="Example home icon"
+                fontIcon="add"
+              >
+              </mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+
+      <h2
+        *ngIf="!loading && !dataSource.data.length"
+        style="text-align: center"
+      >
+        No books in this category
+      </h2>
+
+      <mat-paginator
+        [pageSize]="10"
+        [pageSizeOptions]="[10, 25, 50]"
+        showFirstLastButtons
+      ></mat-paginator>
+    </div>
+  </div>
+</div>

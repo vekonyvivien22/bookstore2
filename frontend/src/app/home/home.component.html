@@ -1,0 +1,249 @@
+<div fxLayoutAlign="center">
+  <mat-spinner *ngIf="loading" indeterminate style="margin: auto"></mat-spinner>
+
+  <div
+    *ngIf="!loading"
+    fxLayout="row wrap"
+    fxLayoutGap="1%"
+    fxLayoutAlign="center"
+    fxFlex.gt-md="60%"
+  >
+    <h1 fxLayout="row" fxLayoutAlign="center" fxFlex="100%" class="title">
+      Bookshop homepage
+    </h1>
+    <h2 fxLayout="row" fxLayoutAlign="center" class="title-secondary">
+      Most recent books
+    </h2>
+    <ngx-flicking
+      #flicking1
+      id="flicking-1"
+      [options]="{ circular: true, duration: 500 }"
+      [plugins]="plugins1"
+    >
+      <div
+        *ngFor="let book of newestBooks"
+        flicking-panel
+        style="padding: 5px; cursor: pointer"
+        routerLink="/book/{{ book._id }}"
+      >
+        <img
+          *ngIf="book.image64"
+          [src]="book.image64"
+          height="500"
+          width="350"
+        />
+        <img
+          *ngIf="!book.image64"
+          src="assets/default.jpg"
+          height="500"
+          width="350"
+        />
+        <div
+          fxLayout="row"
+          style="font-size: 15px; margin: 0 15px"
+          fxLayoutAlign="space-between center"
+        >
+          <strong>{{ book.title }}</strong>
+          <div *ngIf="book.rating">
+            <mat-icon
+              aria-hidden="false"
+              style="vertical-align: middle"
+              fontIcon="star"
+            ></mat-icon>
+            <span style="vertical-align: middle"> {{ book.rating }}</span>
+          </div>
+          <div>
+            <mat-icon
+              aria-hidden="false"
+              fontIcon="calendar_month"
+              style="vertical-align: middle"
+            ></mat-icon>
+            <span style="vertical-align: middle">
+              {{ book.publicationDate }}
+            </span>
+          </div>
+        </div>
+      </div>
+      <span in-viewport class="flicking-arrow-prev"></span>
+      <span in-viewport class="flicking-arrow-next"></span>
+    </ngx-flicking>
+    <h2 fxLayout="row" fxLayoutAlign="center" class="title-secondary">
+      Top rated books
+    </h2>
+    <ngx-flicking
+      #flicking2
+      id="flicking-2"
+      [options]="{ circular: true, duration: 500 }"
+      [plugins]="plugins2"
+    >
+      <div
+        *ngFor="let book of topBooks"
+        flicking-panel
+        style="padding: 5px; cursor: pointer"
+        routerLink="/book/{{ book._id }}"
+      >
+        <img
+          *ngIf="book.image64"
+          [src]="book.image64"
+          height="500"
+          width="350"
+        />
+        <img
+          *ngIf="!book.image64"
+          src="assets/default.jpg"
+          height="500"
+          width="350"
+        />
+        <div
+          fxLayout="row"
+          style="font-size: 15px; margin: 0 15px"
+          fxLayoutAlign="space-between center"
+        >
+          <strong>{{ book.title }}</strong>
+          <div *ngIf="book.rating">
+            <mat-icon
+              aria-hidden="false"
+              style="vertical-align: middle"
+              fontIcon="star"
+            ></mat-icon>
+            <span style="vertical-align: middle"> {{ book.rating }}</span>
+          </div>
+          <div>
+            <mat-icon
+              aria-hidden="false"
+              fontIcon="calendar_month"
+              style="vertical-align: middle"
+            ></mat-icon>
+            <span style="vertical-align: middle">
+              {{ book.publicationDate }}
+            </span>
+          </div>
+        </div>
+      </div>
+      <span in-viewport class="flicking-arrow-prev"></span>
+      <span in-viewport class="flicking-arrow-next"></span>
+    </ngx-flicking>
+    <h2
+      fxLayout="row"
+      fxLayoutAlign="center center"
+      class="title-secondary"
+      fxFlex="100%"
+    >
+      Books of the month
+    </h2>
+    <ngx-flicking
+      #flicking3
+      id="flicking-3"
+      [options]="{ circular: true, duration: 500 }"
+      [plugins]="plugins3"
+    >
+      <div
+        *ngFor="let book of booksOfTheMonth"
+        flicking-panel
+        style="padding: 5px; cursor: pointer"
+        routerLink="/book/{{ book._id }}"
+      >
+        <img
+          *ngIf="book.image64"
+          [src]="book.image64"
+          height="500"
+          width="350"
+        />
+        <img
+          *ngIf="!book.image64"
+          src="assets/default.jpg"
+          height="500"
+          width="350"
+        />
+        <div
+          fxLayout="row"
+          style="font-size: 15px; margin: 0 15px"
+          fxLayoutAlign="space-between center"
+        >
+          <strong>{{ book.title }}</strong>
+          <div *ngIf="book.rating">
+            <mat-icon
+              aria-hidden="false"
+              style="vertical-align: middle"
+              fontIcon="star"
+            ></mat-icon>
+            <span style="vertical-align: middle"> {{ book.rating }}</span>
+          </div>
+          <div>
+            <mat-icon
+              aria-hidden="false"
+              fontIcon="calendar_month"
+              style="vertical-align: middle"
+            ></mat-icon>
+            <span style="vertical-align: middle">
+              {{ book.publicationDate }}
+            </span>
+          </div>
+        </div>
+      </div>
+      <span in-viewport class="flicking-arrow-prev"></span>
+      <span in-viewport class="flicking-arrow-next"></span>
+    </ngx-flicking>
+    <h2
+      fxLayout="row"
+      fxLayoutAlign="center center"
+      class="title-secondary"
+      fxFlex="100%"
+    >
+      Books of the week
+    </h2>
+    <ngx-flicking
+      #flicking4
+      id="flicking-4"
+      [options]="{ circular: true, duration: 500 }"
+      [plugins]="plugins4"
+    >
+      <div
+        *ngFor="let book of booksOfTheWeek"
+        flicking-panel
+        style="padding: 5px; cursor: pointer"
+        routerLink="/book/{{ book._id }}"
+      >
+        <img
+          *ngIf="book.image64"
+          [src]="book.image64"
+          height="500"
+          width="350"
+        />
+        <img
+          *ngIf="!book.image64"
+          src="assets/default.jpg"
+          height="500"
+          width="350"
+        />
+        <div
+          fxLayout="row"
+          style="font-size: 15px; margin: 0 15px"
+          fxLayoutAlign="space-between center"
+        >
+          <strong>{{ book.title }}</strong>
+          <div *ngIf="book.rating">
+            <mat-icon
+              aria-hidden="false"
+              style="vertical-align: middle"
+              fontIcon="star"
+            ></mat-icon>
+            <span style="vertical-align: middle"> {{ book.rating }}</span>
+          </div>
+          <div>
+            <mat-icon
+              aria-hidden="false"
+              fontIcon="calendar_month"
+              style="vertical-align: middle"
+            ></mat-icon>
+            <span style="vertical-align: middle">
+              {{ book.publicationDate }}
+            </span>
+          </div>
+        </div>
+      </div>
+      <span in-viewport class="flicking-arrow-prev"></span>
+      <span in-viewport class="flicking-arrow-next"></span>
+    </ngx-flicking>
+  </div>
+</div>

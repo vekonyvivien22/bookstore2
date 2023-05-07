@@ -1,0 +1,137 @@
+<div fxLayoutAlign="center start" style="margin-top: 2rem">
+  <!-- <mat-spinner indeterminate style="margin: auto"></mat-spinner> -->
+  <div fxFlex="60%" fxLayout="row" style="padding: 0 1.5rem">
+    <div fxFlex="60%">
+      <h1>Order details</h1>
+      <form [formGroup]="cartForm" (ngSubmit)="order()">
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <mat-form-field
+            appearance="outline"
+            style="width: 100%; padding-right: 5px"
+          >
+            <mat-label>Firstname</mat-label>
+            <input type="text" matInput formControlName="firstName" />
+            <mat-error>Invalid or missing firstname.</mat-error>
+          </mat-form-field>
+          <mat-form-field
+            appearance="outline"
+            style="width: 100%; padding-left: 5px"
+          >
+            <mat-label>Lastname</mat-label>
+            <input type="text" matInput formControlName="lastName" />
+            <mat-error>Invalid or missing lastname.</mat-error>
+          </mat-form-field>
+        </div>
+        <mat-form-field appearance="outline" style="width: 100%">
+          <mat-label>Billing/Shipping Address</mat-label>
+          <input type="text" matInput formControlName="address" />
+          <mat-error>Invalid or missing lastname.</mat-error>
+        </mat-form-field>
+        <mat-divider></mat-divider>
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <div fxFlex="50%">
+            <h2 style="padding-left: 10px">Payment</h2>
+            <mat-radio-group
+              aria-label="Select an option"
+              fxLayout="column"
+              color="primary"
+              value="credit card"
+              formControlName="paymentMethod"
+            >
+              <mat-radio-button value="credit card">
+                Credit card
+              </mat-radio-button>
+              <mat-radio-button value="cash">Cash</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div fxFlex="50%">
+            <h2 style="padding-left: 10px">Shipping</h2>
+            <mat-radio-group
+              aria-label="Select an option"
+              fxLayout="column"
+              color="primary"
+              value="home delivery"
+              formControlName="shippingMethod"
+            >
+              <mat-radio-button value="store pickup">
+                Store pickup
+              </mat-radio-button>
+              <mat-radio-button value="home delivery">
+                Home delivery
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+        <mat-divider></mat-divider>
+        <h2>
+          After ordering, you will receive a confirmation email on your email
+          address!
+        </h2>
+        <mat-divider></mat-divider>
+        <button
+          mat-raised-button
+          color="primary"
+          style="margin-top: 10px; width: 100%"
+          [disabled]="cartForm.invalid"
+        >
+          Order
+        </button>
+      </form>
+    </div>
+    <div fxFlex fxFill style="padding-left: 20px">
+      <h1>Your cart</h1>
+      <mat-card>
+        <mat-card-content>
+          <mat-list role="list">
+            <ng-container *ngFor="let book of cartService.books">
+              <div fxLayout="row" fxLayoutAlign="space-between center">
+                <div>
+                  <mat-list-item>
+                    <span matListItemTitle>{{ book.title }}</span>
+                    <span matListItemLine>
+                      {{ book.publisherName }} ({{ book.publicationDate }})
+                    </span>
+                  </mat-list-item>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="center center">
+                  <button
+                    mat-icon-button
+                    color="primary"
+                    (click)="cartService.decreaseQuantity(book._id)"
+                  >
+                    <mat-icon>remove</mat-icon>
+                  </button>
+                  <div fxLayout="column" fxLayoutAlign="center center">
+                    <span>{{ book.price * book.quantity }}</span>
+                    <span>({{ book.quantity }} * {{ book.price }})</span>
+                  </div>
+
+                  <button
+                    mat-icon-button
+                    color="primary"
+                    (click)="cartService.increaseQuantity(book._id)"
+                  >
+                    <mat-icon>add</mat-icon>
+                  </button>
+                </div>
+              </div>
+              <mat-divider></mat-divider>
+            </ng-container>
+          </mat-list>
+        </mat-card-content>
+        <mat-card-footer>
+          <div
+            fxLayout="row"
+            style="padding: 0 1rem"
+            fxLayoutAlign="space-between center"
+          >
+            <h3>Total (Ft)</h3>
+            <h3>
+              <strong>{{ cartService.totalPrice }} Ft</strong>
+            </h3>
+          </div>
+        </mat-card-footer>
+      </mat-card>
+    </div>
+  </div>
+</div>
