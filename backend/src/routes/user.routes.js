@@ -1,7 +1,6 @@
 const express = require('express');
 const { default: mongoose } = require('mongoose');
 const passport = require('passport');
-var Cart = require('../schemas/cart');
 
 const models = {
   category: mongoose.model('category'),

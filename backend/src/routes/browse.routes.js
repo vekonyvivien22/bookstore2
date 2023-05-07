@@ -10,27 +10,6 @@ const models = {
 
 const router = express.Router();
 
-/*router.route('/').post(async (req, res) => {
-  const catName = 0;
-  const storeName = 0;
-  const data = req.body.data;
-  //console.log(data);
-  const bookObj = await models.book.find({
-    $or: [{ title: { $regex: data } }, { 'authors.name': { $regex: data } }],
-  });
-
-  const books = new Map();
-  for (const book of bookObj) {
-    books.set(book, 0);
-  }
-
-  return res.json({
-    books,
-    catName,
-    storeName,
-  });
-});*/
-
 router.route('/cat/:name').get(async (req, res) => {
   const catName = req.params.name;
   const books = await models.book.find({ 'categories.name': catName });
@@ -40,28 +19,6 @@ router.route('/cat/:name').get(async (req, res) => {
 router.route('/store/:name').get(async (req, res) => {
   const storeName = req.params.name;
   const catName = 0;
-  /*const sort = req.query.sort;
-
-  let priceRange = [0, Infinity];
-  let sortFilter = { title: 1 };
-  if (sort == 21) {
-    sortFilter = { title: 1 };
-  } else if (sort == 22) {
-    sortFilter = { title: -1 };
-  } else if (sort == 23) {
-    sortFilter = { rating: 1 };
-  } else if (sort == 24) {
-    sortFilter = { rating: -1 };
-  } else if (sort == 11) {
-    sortFilter = { price: 1 };
-    priceRange = [0, 2500];
-  } else if (sort == 12) {
-    sortFilter = { price: 1 };
-    priceRange = [2500, 5000];
-  } else if (sort == 13) {
-    sortFilter = { price: 1 };
-    priceRange = [5000, Infinity];
-  }*/
 
   const storesStock = (await models.store.find({ name: storeName }, { storeStock: 1 })).map(
     (store) => store.storeStock,
